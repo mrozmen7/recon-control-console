@@ -63,6 +63,7 @@ src/app/
 - [Project Brief](docs/project-brief.md)
 - [Learning Roadmap](docs/learning-roadmap.md)
 - [Phase 1 Angular Foundation](docs/phase-1-angular-foundation.md)
+- [Phase 2 Components And Templates](docs/phase-2-components-and-templates.md)
 
 ## Getting Started
 
@@ -97,7 +98,7 @@ npm test -- --watch=false
 
 ## Status
 
-Phase 1 is in progress: Angular scaffold, app bootstrap, and root shell.
+Phase 2 is in progress: component composition, templates, and the first professional app shell.
 
 Current verification:
 
