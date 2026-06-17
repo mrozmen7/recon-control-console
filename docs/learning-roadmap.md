@@ -68,15 +68,10 @@ feat: scaffold recon control console angular app
 
 Goal:
 
-Build a clean dashboard foundation before adding business behavior. This starts with component and template fundamentals before the UI becomes more feature-rich.
+Build a clean dashboard foundation before adding business behavior.
 
 Topics:
 
-- components
-- templates
-- selectors
-- interpolation
-- property binding
 - component composition
 - layout structure
 - reusable UI primitives
