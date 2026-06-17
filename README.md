@@ -64,6 +64,42 @@ src/app/
 - [Learning Roadmap](docs/learning-roadmap.md)
 - [Phase 1 Angular Foundation](docs/phase-1-angular-foundation.md)
 
+## Getting Started
+
+Recommended runtime:
+
+- Node.js 22 LTS or another Angular-supported LTS version
+- npm 11+
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the local development server:
+
+```bash
+npm run start
+```
+
+Build the project:
+
+```bash
+npm run build
+```
+
+Run tests:
+
+```bash
+npm test -- --watch=false
+```
+
 ## Status
 
-Phase 0 is in progress: project brief, roadmap, and portfolio direction.
+Phase 1 is in progress: Angular scaffold, app bootstrap, and root shell.
+
+Current verification:
+
+- `npm run build` passes
+- `npm test -- --watch=false` passes
