@@ -62,8 +62,8 @@ src/app/
 
 - [Project Brief](docs/project-brief.md)
 - [Learning Roadmap](docs/learning-roadmap.md)
+- [Phase 1 Angular Foundation](docs/phase-1-angular-foundation.md)
 
 ## Status
 
 Phase 0 is in progress: project brief, roadmap, and portfolio direction.
-

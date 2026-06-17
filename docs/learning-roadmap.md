@@ -16,6 +16,7 @@ Outputs:
 
 - project brief
 - learning roadmap
+- Angular foundation glossary
 - first README skeleton
 - initial git repository
 
@@ -48,6 +49,7 @@ Topics:
 - app.routes.ts
 - standalone components
 - application bootstrap
+- component, template, selector, router, service, and dependency injection terminology
 
 Project features:
 
@@ -408,4 +410,3 @@ Suggested commit:
 ```bash
 docs: finalize portfolio readme and project presentation
 ```
-
