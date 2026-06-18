@@ -38,25 +38,21 @@ The domain is intentionally limited so the project stays focused on Angular conc
 
 ## Architecture Direction
 
-The project will use an enterprise-aware structure without unnecessary complexity:
+The project uses enterprise-aware boundaries without unnecessary complexity:
 
 ```text
 src/app/
-  core/
-    api/
-    config/
-    guards/
-    stores/
-  shared/
-    ui/
-    directives/
-    tabs/
+  app.*
+  layout/
   features/
     cases/
-    case-detail/
     create-case/
     review-queue/
 ```
+
+`core/`, `shared/`, and feature subfolders are introduced when a concrete
+course example requires them. See the Phase 4 document for ownership and
+dependency rules.
 
 ## Documentation
 
@@ -65,6 +61,7 @@ src/app/
 - [Phase 1 Angular Foundation](docs/phase-1-angular-foundation.md)
 - [Phase 2 Components And Templates](docs/phase-2-components-and-templates.md)
 - [Phase 3 Routing Basics](docs/phase-3-routing-basics.md)
+- [Phase 4 Enterprise-Aware Architecture](docs/phase-4-enterprise-architecture.md)
 
 ## Getting Started
 
@@ -99,7 +96,7 @@ npm test -- --watch=false
 
 ## Status
 
-Phase 3 is complete: URL-based page navigation, route configuration, active navigation, redirects, and routing tests.
+Phase 4 is complete: application boundaries, dependency direction, code ownership, and incremental architecture rules are documented.
 
 Current verification:
 
