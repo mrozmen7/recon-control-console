@@ -66,6 +66,11 @@
   color: #0f172a;
 }
 
+.nav a.active {
+  background: #e0e7ff;
+  color: #1d4ed8;
+}
+
 .phase {
   min-width: max-content;
   padding: 8px 12px;

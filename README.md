@@ -64,6 +64,7 @@ src/app/
 - [Learning Roadmap](docs/learning-roadmap.md)
 - [Phase 1 Angular Foundation](docs/phase-1-angular-foundation.md)
 - [Phase 2 Components And Templates](docs/phase-2-components-and-templates.md)
+- [Phase 3 Routing Basics](docs/phase-3-routing-basics.md)
 
 ## Getting Started
 
@@ -98,7 +99,7 @@ npm test -- --watch=false
 
 ## Status
 
-Phase 2 is in progress: component composition, templates, and the first professional app shell.
+Phase 3 is complete: URL-based page navigation, route configuration, active navigation, redirects, and routing tests.
 
 Current verification:
 
