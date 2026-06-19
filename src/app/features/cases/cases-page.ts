@@ -3,10 +3,11 @@ import type { ReconciliationCase } from './model/reconciliation-case';
 import { CaseMetricCard } from './ui/case-metric-card';
 import { CaseWorkflowActions } from './ui/case-workflow-actions';
 import { CaseSearch } from './ui/case-search';
+import { ReconciliationCaseCard } from './ui/reconciliation-case-card';
 
 @Component({
   selector: 'app-cases-page',
-  imports: [CaseMetricCard, CaseWorkflowActions, CaseSearch],
+  imports: [CaseMetricCard, CaseWorkflowActions, CaseSearch, ReconciliationCaseCard],
   template: `
     <section class="page-heading" aria-labelledby="cases-title">
       <p class="eyebrow">Operations workspace</p>
@@ -45,12 +46,38 @@ import { CaseSearch } from './ui/case-search';
       />
     </section>
 
+    <section class="case-results" aria-labelledby="case-results-title">
+      <div class="case-results__header">
+        <div>
+          <p class="eyebrow">Case register</p>
+          <h2 id="case-results-title">Operational cases</h2>
+        </div>
+
+        @if (searchQuery()) {
+          <p class="active-filter">Filtered by: <strong>{{ searchQuery() }}</strong></p>
+        }
+      </div>
+
+      @if (filteredCases().length > 0) {
+        <div class="case-grid" data-testid="case-list">
+          @for (reconciliationCase of filteredCases(); track reconciliationCase.id) {
+            <app-reconciliation-case-card [reconciliationCase]="reconciliationCase" />
+          }
+        </div>
+      } @else {
+        <div class="empty-state" data-testid="empty-case-list">
+          <h3>No matching cases</h3>
+          <p>Clear the current search or try another case or transaction reference.</p>
+        </div>
+      }
+    </section>
+
     <section class="learning-panel" aria-labelledby="learning-title">
       <p class="eyebrow">Current learning checkpoint</p>
-      <h2 id="learning-title">Signal component model</h2>
+      <h2 id="learning-title">Template control flow</h2>
       <p>
-        Parent and child components communicate through signal inputs, outputs, models, computed
-        values, and linked state.
+        Angular creates the filtered case list, empty state, and status variants declaratively with
+        <code>&#64;if</code>, <code>&#64;for</code>, and <code>&#64;switch</code>.
       </p>
     </section>
   `,
@@ -108,20 +135,22 @@ export class CasesPage {
     ).length;
   });
 
-  protected readonly matchingCaseCount = computed(() => {
+  protected readonly filteredCases = computed(() => {
     const normalizedQuery = this.searchQuery().trim().toLowerCase();
     const currentCases = this.cases();
 
     if (!normalizedQuery) {
-      return currentCases.length;
+      return currentCases;
     }
 
     return currentCases.filter(
       (reconciliationCase) =>
         reconciliationCase.id.toLowerCase().includes(normalizedQuery) ||
         reconciliationCase.reference.toLowerCase().includes(normalizedQuery),
-    ).length;
+    );
   });
+
+  protected readonly matchingCaseCount = computed(() => this.filteredCases().length);
 
   protected registerIncomingCase(): void {
     this.cases.update((currentCases) => {

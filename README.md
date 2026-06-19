@@ -64,6 +64,7 @@ dependency rules.
 - [Phase 4 Enterprise-Aware Architecture](docs/phase-4-enterprise-architecture.md)
 - [Phase 5 Signals Basics](docs/phase-5-signals-basics.md)
 - [Phase 6 Signal Component Model](docs/phase-6-signal-component-model.md)
+- [Phase 7 Template Control Flow](docs/phase-7-template-control-flow.md)
 
 ## Getting Started
 
@@ -98,7 +99,7 @@ npm test -- --watch=false
 
 ## Status
 
-Phase 6 is complete: signal inputs, outputs, models, child computed values, and linked editable state are implemented through feature-owned UI components.
+Phase 7 is complete: filtered case rendering, empty states, stable list identity, and status variants are implemented with Angular template control flow.
 
 Current verification:
 

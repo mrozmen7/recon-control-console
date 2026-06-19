@@ -1,0 +1,84 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+article {
+  box-sizing: border-box;
+  height: 100%;
+  padding: 20px;
+  border: 1px solid #d8dee8;
+  border-radius: 8px;
+  background: #ffffff;
+}
+
+header {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.case-id {
+  color: #64748b;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+h3 {
+  margin: 6px 0 0;
+  font-size: 1.05rem;
+}
+
+.status {
+  flex: 0 0 auto;
+  padding: 5px 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  color: #475569;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.status--open {
+  border-color: #93c5fd;
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.status--review {
+  border-color: #fcd34d;
+  background: #fffbeb;
+  color: #92400e;
+}
+
+.status--resolved {
+  border-color: #86efac;
+  background: #f0fdf4;
+  color: #166534;
+}
+
+.case-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid #e2e8f0;
+  color: #475569;
+  font-size: 0.84rem;
+}
+
+.case-meta strong {
+  color: #0f172a;
+  text-align: right;
+}
+
+.risk-message {
+  margin: 14px 0 0;
+  color: #b91c1c;
+  font-size: 0.82rem;
+  font-weight: 750;
+}
