@@ -1,8 +1,12 @@
 import { Component, computed, signal } from '@angular/core';
 import type { ReconciliationCase } from './model/reconciliation-case';
+import { CaseMetricCard } from './ui/case-metric-card';
+import { CaseWorkflowActions } from './ui/case-workflow-actions';
+import { CaseSearch } from './ui/case-search';
 
 @Component({
   selector: 'app-cases-page',
+  imports: [CaseMetricCard, CaseWorkflowActions, CaseSearch],
   template: `
     <section class="page-heading" aria-labelledby="cases-title">
       <p class="eyebrow">Operations workspace</p>
@@ -12,58 +16,49 @@ import type { ReconciliationCase } from './model/reconciliation-case';
       </p>
     </section>
 
+    <app-case-search [(query)]="searchQuery" [resultCount]="matchingCaseCount()" />
+
     <section class="overview-grid" aria-label="Operational overview">
       <article>
         <span>Open cases</span>
         <strong data-testid="open-cases-count">{{ openCaseCount() }}</strong>
         <small>Cases currently awaiting operational action.</small>
 
-        <div class="metric-actions">
-          <button
-            class="metric-action"
-            type="button"
-            data-testid="register-case"
-            (click)="registerIncomingCase()"
-          >
-            Register incoming case
-          </button>
-
-          <button
-            class="metric-action metric-action--secondary"
-            type="button"
-            data-testid="move-case-to-review"
-            (click)="moveNextOpenCaseToReview()"
-          >
-            Move next case to review
-          </button>
-        </div>
+        <app-case-workflow-actions
+          (registerRequested)="registerIncomingCase()"
+          (reviewRequested)="moveNextOpenCaseToReview()"
+        />
       </article>
 
-      <article>
-        <span>Review queue</span>
-        <strong data-testid="review-queue-count">{{ reviewQueueCount() }}</strong>
-        <small>Cases assigned to active analyst review.</small>
-      </article>
+      <app-case-metric-card
+        label="Review queue"
+        [value]="reviewQueueCount()"
+        description="Cases assigned to active analyst review."
+        testId="review-queue-count"
+      />
 
-      <article>
-        <span>SLA at risk</span>
-        <strong data-testid="sla-risk-count">{{ slaAtRiskCount() }}</strong>
-        <small>Active cases with four hours or less remaining.</small>
-      </article>
+      <app-case-metric-card
+        label="SLA at risk"
+        [value]="slaAtRiskCount()"
+        description="Active cases with four hours or less remaining."
+        testId="sla-risk-count"
+      />
     </section>
 
     <section class="learning-panel" aria-labelledby="learning-title">
       <p class="eyebrow">Current learning checkpoint</p>
-      <h2 id="learning-title">Signals basics</h2>
+      <h2 id="learning-title">Signal component model</h2>
       <p>
-        Operational metrics are derived from one typed case state with writable and computed
-        signals.
+        Parent and child components communicate through signal inputs, outputs, models, computed
+        values, and linked state.
       </p>
     </section>
   `,
   styleUrl: './cases-page.css',
 })
 export class CasesPage {
+  protected readonly searchQuery = signal('');
+
   protected readonly cases = signal<ReconciliationCase[]>([
     {
       id: 'CASE-1001',
@@ -110,6 +105,21 @@ export class CasesPage {
     return currentCases.filter(
       (reconciliationCase) =>
         reconciliationCase.status !== 'RESOLVED' && reconciliationCase.slaHoursRemaining <= 4,
+    ).length;
+  });
+
+  protected readonly matchingCaseCount = computed(() => {
+    const normalizedQuery = this.searchQuery().trim().toLowerCase();
+    const currentCases = this.cases();
+
+    if (!normalizedQuery) {
+      return currentCases.length;
+    }
+
+    return currentCases.filter(
+      (reconciliationCase) =>
+        reconciliationCase.id.toLowerCase().includes(normalizedQuery) ||
+        reconciliationCase.reference.toLowerCase().includes(normalizedQuery),
     ).length;
   });
 

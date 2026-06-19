@@ -55,6 +55,32 @@ describe('CasesPage', () => {
     expect(metricText(compiled, 'open-cases-count')).toBe('0');
     expect(metricText(compiled, 'review-queue-count')).toBe('3');
   });
+
+  it('commits the search model and derives the matching case count', () => {
+    const fixture = TestBed.createComponent(CasesPage);
+    fixture.detectChanges();
+
+    const compiled = fixture.nativeElement as HTMLElement;
+    const searchInput = requiredElement<HTMLInputElement>(compiled, 'case-search-input');
+    const searchForm = requiredElement<HTMLFormElement>(compiled, 'case-search-form');
+
+    expect(metricText(compiled, 'case-search-summary')).toBe('4 total cases');
+
+    searchInput.value = '1001';
+    searchInput.dispatchEvent(new Event('input', { bubbles: true }));
+
+    expect(metricText(compiled, 'case-search-summary')).toBe('4 total cases');
+
+    searchForm.dispatchEvent(new Event('submit', { bubbles: true, cancelable: true }));
+    fixture.detectChanges();
+
+    expect(metricText(compiled, 'case-search-summary')).toBe('1 matching case');
+
+    button(compiled, 'clear-search').click();
+    fixture.detectChanges();
+
+    expect(metricText(compiled, 'case-search-summary')).toBe('4 total cases');
+  });
 });
 
 function metricText(element: HTMLElement, testId: string): string | undefined {
@@ -62,10 +88,14 @@ function metricText(element: HTMLElement, testId: string): string | undefined {
 }
 
 function button(element: HTMLElement, testId: string): HTMLButtonElement {
-  const target = element.querySelector<HTMLButtonElement>(`[data-testid="${testId}"]`);
+  return requiredElement<HTMLButtonElement>(element, testId);
+}
+
+function requiredElement<T extends Element>(element: HTMLElement, testId: string): T {
+  const target = element.querySelector<T>(`[data-testid="${testId}"]`);
 
   if (!target) {
-    throw new Error(`Button with test id "${testId}" was not found.`);
+    throw new Error(`Element with test id "${testId}" was not found.`);
   }
 
   return target;

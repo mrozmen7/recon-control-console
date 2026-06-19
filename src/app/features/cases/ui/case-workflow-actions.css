@@ -1,0 +1,37 @@
+:host {
+  display: block;
+}
+
+.metric-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.metric-action {
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 1px solid #1d4ed8;
+  border-radius: 6px;
+  background: #1d4ed8;
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.metric-action:hover {
+  background: #1e40af;
+}
+
+.metric-action--secondary {
+  border-color: #cbd5e1;
+  background: #ffffff;
+  color: #334155;
+}
+
+.metric-action--secondary:hover {
+  background: #f1f5f9;
+}

@@ -63,6 +63,7 @@ dependency rules.
 - [Phase 3 Routing Basics](docs/phase-3-routing-basics.md)
 - [Phase 4 Enterprise-Aware Architecture](docs/phase-4-enterprise-architecture.md)
 - [Phase 5 Signals Basics](docs/phase-5-signals-basics.md)
+- [Phase 6 Signal Component Model](docs/phase-6-signal-component-model.md)
 
 ## Getting Started
 
@@ -97,7 +98,7 @@ npm test -- --watch=false
 
 ## Status
 
-Phase 5 is complete: typed writable Signals, computed state, immutable updates, dependency tracking, and component-level Signal tests are implemented.
+Phase 6 is complete: signal inputs, outputs, models, child computed values, and linked editable state are implemented through feature-owned UI components.
 
 Current verification:
 
