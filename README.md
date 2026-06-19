@@ -62,6 +62,7 @@ dependency rules.
 - [Phase 2 Components And Templates](docs/phase-2-components-and-templates.md)
 - [Phase 3 Routing Basics](docs/phase-3-routing-basics.md)
 - [Phase 4 Enterprise-Aware Architecture](docs/phase-4-enterprise-architecture.md)
+- [Phase 5 Signals Basics](docs/phase-5-signals-basics.md)
 
 ## Getting Started
 
@@ -96,7 +97,7 @@ npm test -- --watch=false
 
 ## Status
 
-Phase 4 is complete: application boundaries, dependency direction, code ownership, and incremental architecture rules are documented.
+Phase 5 is complete: typed writable Signals, computed state, immutable updates, dependency tracking, and component-level Signal tests are implemented.
 
 Current verification:
 
