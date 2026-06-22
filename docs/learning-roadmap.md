@@ -28,8 +28,8 @@ Angular concept
 | 6     | Signal component model                                 | Complete |
 | 7     | Template control flow                                  | Complete |
 | 8     | Declarative data fetching with `httpResource`          | Complete |
-| 9     | Advanced routing                                       | Next     |
-| 10    | Signal Forms                                           | Planned  |
+| 9     | Advanced routing                                       | Complete |
+| 10    | Signal Forms                                           | Next     |
 | 11    | Dependency Injection and shared UI patterns            | Planned  |
 | 12    | RxJS, SignalStore, rendering, performance, and testing | Planned  |
 | 13    | Portfolio polish                                       | Planned  |

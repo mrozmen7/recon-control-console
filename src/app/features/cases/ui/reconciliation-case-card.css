@@ -4,12 +4,33 @@
 }
 
 article {
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
   height: 100%;
   padding: 20px;
   border: 1px solid #d8dee8;
   border-radius: 8px;
   background: #ffffff;
+}
+
+.case-link {
+  align-self: start;
+  margin-top: auto;
+  padding-top: 18px;
+  color: #1d4ed8;
+  font-size: 0.86rem;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.case-link:hover {
+  text-decoration: underline;
+}
+
+.case-link:focus-visible {
+  outline: 3px solid #bfdbfe;
+  outline-offset: 3px;
 }
 
 header {

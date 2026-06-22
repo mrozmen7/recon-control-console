@@ -1,8 +1,10 @@
 import { Component, computed, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import type { ReconciliationCase } from '../model/reconciliation-case';
 
 @Component({
   selector: 'app-reconciliation-case-card',
+  imports: [RouterLink],
   template: `
     <article data-testid="reconciliation-case-card" [attr.data-case-id]="reconciliationCase().id">
       <header>
@@ -40,6 +42,14 @@ import type { ReconciliationCase } from '../model/reconciliation-case';
       @if (isSlaAtRisk()) {
         <p class="risk-message">SLA attention required</p>
       }
+
+      <a
+        class="case-link"
+        data-testid="case-details-link"
+        [routerLink]="['/cases', reconciliationCase().id]"
+      >
+        View case
+      </a>
     </article>
   `,
   styleUrl: './reconciliation-case-card.css',

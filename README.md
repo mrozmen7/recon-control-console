@@ -66,6 +66,7 @@ dependency rules.
 - [Phase 6 Signal Component Model](docs/phase-6-signal-component-model.md)
 - [Phase 7 Template Control Flow](docs/phase-7-template-control-flow.md)
 - [Phase 8 Declarative Data Fetching](docs/phase-8-http-resource.md)
+- [Phase 9 Advanced Routing](docs/phase-9-advanced-routing.md)
 
 ## Getting Started
 
@@ -100,12 +101,12 @@ npm test -- --watch=false
 
 ## Status
 
-Phase 8 is complete: case reads cross a feature data-access boundary through
-`httpResource`, and the page represents loading, error, API-empty,
-search-empty, and successful data states.
+Phase 9 is complete: case cards open shareable detail routes, dynamic route
+parameters bind directly to signal inputs, secondary pages load lazily, and
+functional guards plus native view transitions extend the Router lifecycle.
 
 Current verification:
 
 - `npm run build` passes
 - `npm test -- --watch=false` passes
-- 14 focused tests cover routing, HTTP behavior, resource states, signals, and component interaction
+- 21 focused tests cover routing, HTTP behavior, resource states, signals, and component interaction

@@ -1,5 +1,6 @@
 import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { vi } from 'vitest';
 import type { ReconciliationCase } from './model/reconciliation-case';
 import { CasesService } from './data-access/cases.service';
@@ -47,6 +48,7 @@ describe('CasesPage', () => {
     await TestBed.configureTestingModule({
       imports: [CasesPage],
       providers: [
+        provideRouter([]),
         {
           provide: CasesService,
           useValue: {
@@ -94,6 +96,9 @@ describe('CasesPage', () => {
     expect(metricText(compiled, 'review-queue-count')).toBe('1');
     expect(metricText(compiled, 'sla-risk-count')).toBe('1');
     expect(elements(compiled, 'reconciliation-case-card')).toHaveLength(4);
+    expect(
+      requiredElement<HTMLAnchorElement>(compiled, 'case-details-link').getAttribute('href'),
+    ).toBe('/cases/CASE-1001');
   });
 
   it('recomputes the open count when an incoming case is registered', () => {
