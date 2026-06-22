@@ -1,0 +1,26 @@
+[
+  {
+    "id": "CASE-1001",
+    "reference": "TXN-2026-001",
+    "status": "OPEN",
+    "slaHoursRemaining": 2
+  },
+  {
+    "id": "CASE-1002",
+    "reference": "TXN-2026-002",
+    "status": "IN_REVIEW",
+    "slaHoursRemaining": 6
+  },
+  {
+    "id": "CASE-1003",
+    "reference": "TXN-2026-003",
+    "status": "OPEN",
+    "slaHoursRemaining": 12
+  },
+  {
+    "id": "CASE-1004",
+    "reference": "TXN-2026-004",
+    "status": "RESOLVED",
+    "slaHoursRemaining": 0
+  }
+]

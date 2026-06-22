@@ -37,6 +37,75 @@ h2 {
   line-height: 1.7;
 }
 
+.resource-state {
+  display: grid;
+  justify-items: center;
+  min-height: 220px;
+  margin-top: 36px;
+  padding: 40px 24px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+  text-align: center;
+}
+
+.resource-state h2 {
+  margin: 16px 0 8px;
+}
+
+.resource-state p {
+  max-width: 520px;
+  margin-bottom: 0;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.resource-state__spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #bfdbfe;
+  border-top-color: #1d4ed8;
+  border-radius: 50%;
+  animation: resource-state-spin 800ms linear infinite;
+}
+
+.resource-state--error {
+  border-color: #fecaca;
+  background: #fffafa;
+}
+
+.resource-state--error h2 {
+  color: #991b1b;
+}
+
+.resource-state__action {
+  margin-top: 22px;
+  padding: 11px 16px;
+  border: 1px solid #b91c1c;
+  border-radius: 6px;
+  background: #b91c1c;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+.resource-state__action:hover {
+  background: #991b1b;
+}
+
+.resource-state__action:focus-visible {
+  outline: 3px solid #fecaca;
+  outline-offset: 3px;
+}
+
+@keyframes resource-state-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .overview-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -160,5 +229,11 @@ code {
 
   .case-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resource-state__spinner {
+    animation: none;
   }
 }

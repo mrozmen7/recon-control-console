@@ -1,9 +1,10 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import type { ReconciliationCase } from './model/reconciliation-case';
 import { CaseMetricCard } from './ui/case-metric-card';
 import { CaseWorkflowActions } from './ui/case-workflow-actions';
 import { CaseSearch } from './ui/case-search';
 import { ReconciliationCaseCard } from './ui/reconciliation-case-card';
+import { CasesService } from './data-access/cases.service';
 
 @Component({
   selector: 'app-cases-page',
@@ -17,101 +18,106 @@ import { ReconciliationCaseCard } from './ui/reconciliation-case-card';
       </p>
     </section>
 
-    <app-case-search [(query)]="searchQuery" [resultCount]="matchingCaseCount()" />
+    @if (casesResource.isLoading()) {
+      <section class="resource-state" role="status" aria-live="polite" data-testid="cases-loading">
+        <span class="resource-state__spinner" aria-hidden="true"></span>
+        <h2>Loading cases</h2>
+        <p>Operational case data is being retrieved.</p>
+      </section>
+    } @else if (casesResource.error()) {
+      <section class="resource-state resource-state--error" role="alert" data-testid="cases-error">
+        <h2>Cases could not be loaded</h2>
+        <p>The data service is currently unavailable. Retry the request to continue.</p>
 
-    <section class="overview-grid" aria-label="Operational overview">
-      <article>
-        <span>Open cases</span>
-        <strong data-testid="open-cases-count">{{ openCaseCount() }}</strong>
-        <small>Cases currently awaiting operational action.</small>
+        <button
+          class="resource-state__action"
+          type="button"
+          data-testid="reload-cases"
+          (click)="reloadCases()"
+        >
+          Try again
+        </button>
+      </section>
+    } @else {
+      <app-case-search [(query)]="searchQuery" [resultCount]="matchingCaseCount()" />
 
-        <app-case-workflow-actions
-          (registerRequested)="registerIncomingCase()"
-          (reviewRequested)="moveNextOpenCaseToReview()"
+      <section class="overview-grid" aria-label="Operational overview">
+        <article>
+          <span>Open cases</span>
+          <strong data-testid="open-cases-count">{{ openCaseCount() }}</strong>
+          <small>Cases currently awaiting operational action.</small>
+
+          <app-case-workflow-actions
+            (registerRequested)="registerIncomingCase()"
+            (reviewRequested)="moveNextOpenCaseToReview()"
+          />
+        </article>
+
+        <app-case-metric-card
+          label="Review queue"
+          [value]="reviewQueueCount()"
+          description="Cases assigned to active analyst review."
+          testId="review-queue-count"
         />
-      </article>
 
-      <app-case-metric-card
-        label="Review queue"
-        [value]="reviewQueueCount()"
-        description="Cases assigned to active analyst review."
-        testId="review-queue-count"
-      />
+        <app-case-metric-card
+          label="SLA at risk"
+          [value]="slaAtRiskCount()"
+          description="Active cases with four hours or less remaining."
+          testId="sla-risk-count"
+        />
+      </section>
 
-      <app-case-metric-card
-        label="SLA at risk"
-        [value]="slaAtRiskCount()"
-        description="Active cases with four hours or less remaining."
-        testId="sla-risk-count"
-      />
-    </section>
+      <section class="case-results" aria-labelledby="case-results-title">
+        <div class="case-results__header">
+          <div>
+            <p class="eyebrow">Case register</p>
+            <h2 id="case-results-title">Operational cases</h2>
+          </div>
 
-    <section class="case-results" aria-labelledby="case-results-title">
-      <div class="case-results__header">
-        <div>
-          <p class="eyebrow">Case register</p>
-          <h2 id="case-results-title">Operational cases</h2>
-        </div>
-
-        @if (searchQuery()) {
-          <p class="active-filter">Filtered by: <strong>{{ searchQuery() }}</strong></p>
-        }
-      </div>
-
-      @if (filteredCases().length > 0) {
-        <div class="case-grid" data-testid="case-list">
-          @for (reconciliationCase of filteredCases(); track reconciliationCase.id) {
-            <app-reconciliation-case-card [reconciliationCase]="reconciliationCase" />
+          @if (searchQuery()) {
+            <p class="active-filter">
+              Filtered by: <strong>{{ searchQuery() }}</strong>
+            </p>
           }
         </div>
-      } @else {
-        <div class="empty-state" data-testid="empty-case-list">
-          <h3>No matching cases</h3>
-          <p>Clear the current search or try another case or transaction reference.</p>
-        </div>
-      }
-    </section>
+
+        @if (cases().length === 0) {
+          <div class="empty-state" data-testid="empty-case-register">
+            <h3>No operational cases</h3>
+            <p>The data source returned no reconciliation cases.</p>
+          </div>
+        } @else if (filteredCases().length > 0) {
+          <div class="case-grid" data-testid="case-list">
+            @for (reconciliationCase of filteredCases(); track reconciliationCase.id) {
+              <app-reconciliation-case-card [reconciliationCase]="reconciliationCase" />
+            }
+          </div>
+        } @else {
+          <div class="empty-state" data-testid="empty-case-list">
+            <h3>No matching cases</h3>
+            <p>Clear the current search or try another case or transaction reference.</p>
+          </div>
+        }
+      </section>
+    }
 
     <section class="learning-panel" aria-labelledby="learning-title">
       <p class="eyebrow">Current learning checkpoint</p>
-      <h2 id="learning-title">Template control flow</h2>
+      <h2 id="learning-title">Declarative data fetching</h2>
       <p>
-        Angular creates the filtered case list, empty state, and status variants declaratively with
-        <code>&#64;if</code>, <code>&#64;for</code>, and <code>&#64;switch</code>.
+        Angular derives loading, error, empty, and success views from one
+        <code>httpResource</code> state.
       </p>
     </section>
   `,
   styleUrl: './cases-page.css',
 })
 export class CasesPage {
+  private readonly casesService = inject(CasesService);
+  protected readonly casesResource = this.casesService.casesResource;
+  protected readonly cases = this.casesResource.value;
   protected readonly searchQuery = signal('');
-
-  protected readonly cases = signal<ReconciliationCase[]>([
-    {
-      id: 'CASE-1001',
-      reference: 'TXN-2026-001',
-      status: 'OPEN',
-      slaHoursRemaining: 2,
-    },
-    {
-      id: 'CASE-1002',
-      reference: 'TXN-2026-002',
-      status: 'IN_REVIEW',
-      slaHoursRemaining: 6,
-    },
-    {
-      id: 'CASE-1003',
-      reference: 'TXN-2026-003',
-      status: 'OPEN',
-      slaHoursRemaining: 12,
-    },
-    {
-      id: 'CASE-1004',
-      reference: 'TXN-2026-004',
-      status: 'RESOLVED',
-      slaHoursRemaining: 0,
-    },
-  ]);
 
   protected readonly openCaseCount = computed(() => {
     const currentCases = this.cases();
@@ -190,5 +196,9 @@ export class CasesPage {
         return caseInReview;
       });
     });
+  }
+
+  protected reloadCases(): void {
+    this.casesResource.reload();
   }
 }

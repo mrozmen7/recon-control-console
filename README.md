@@ -65,6 +65,7 @@ dependency rules.
 - [Phase 5 Signals Basics](docs/phase-5-signals-basics.md)
 - [Phase 6 Signal Component Model](docs/phase-6-signal-component-model.md)
 - [Phase 7 Template Control Flow](docs/phase-7-template-control-flow.md)
+- [Phase 8 Declarative Data Fetching](docs/phase-8-http-resource.md)
 
 ## Getting Started
 
@@ -99,9 +100,12 @@ npm test -- --watch=false
 
 ## Status
 
-Phase 7 is complete: filtered case rendering, empty states, stable list identity, and status variants are implemented with Angular template control flow.
+Phase 8 is complete: case reads cross a feature data-access boundary through
+`httpResource`, and the page represents loading, error, API-empty,
+search-empty, and successful data states.
 
 Current verification:
 
 - `npm run build` passes
 - `npm test -- --watch=false` passes
+- 14 focused tests cover routing, HTTP behavior, resource states, signals, and component interaction

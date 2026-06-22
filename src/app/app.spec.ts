@@ -1,13 +1,28 @@
+import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { App } from './app';
 import { routes } from './app.routes';
+import { CasesService } from './features/cases/data-access/cases.service';
 
 describe('App', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
-      providers: [provideRouter(routes)],
+      providers: [
+        provideRouter(routes),
+        {
+          provide: CasesService,
+          useValue: {
+            casesResource: {
+              value: signal([]),
+              isLoading: signal(false),
+              error: signal<unknown | undefined>(undefined),
+              reload: () => true,
+            },
+          },
+        },
+      ],
     }).compileComponents();
   });
 

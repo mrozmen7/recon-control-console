@@ -2,411 +2,114 @@
 
 ## Main Objective
 
-Build a professional Angular reference project while learning the full course content step by step.
+Build a professional Angular reference project while learning the complete
+Intermediate Angular: Signals and Dependency Injection curriculum step by
+step. The course concepts are implemented in an original reconciliation
+operations domain rather than copying the course UI.
 
-The project follows the course sequence, but each concept is implemented in the Recon Control Console domain.
-
-## Phase 0 - Project Brief And Roadmap
-
-Goal:
-
-Define what the project is, what it is not, and how the course topics map to the portfolio project.
-
-Outputs:
-
-- project brief
-- learning roadmap
-- Angular foundation glossary
-- first README skeleton
-- initial git repository
-
-Angular focus:
-
-- no Angular code yet
-- project thinking
-- architecture boundaries
-- portfolio direction
-
-Suggested commit:
-
-```bash
-docs: define recon control console learning roadmap
+```text
+Angular concept
+  -> focused explanation
+    -> Recon Control Console implementation
+      -> automated verification
+        -> phase documentation and commit
 ```
 
-## Phase 1 - Angular Scaffold And App Shell
+## Phase Sequence
 
-Goal:
+| Phase | Topic                                                  | Status   |
+| ----- | ------------------------------------------------------ | -------- |
+| 0     | Project brief and roadmap                              | Complete |
+| 1     | Angular scaffold and foundation                        | Complete |
+| 2     | Components and templates                               | Complete |
+| 3     | Routing basics                                         | Complete |
+| 4     | Enterprise-aware architecture                          | Complete |
+| 5     | Signals basics                                         | Complete |
+| 6     | Signal component model                                 | Complete |
+| 7     | Template control flow                                  | Complete |
+| 8     | Declarative data fetching with `httpResource`          | Complete |
+| 9     | Advanced routing                                       | Next     |
+| 10    | Signal Forms                                           | Planned  |
+| 11    | Dependency Injection and shared UI patterns            | Planned  |
+| 12    | RxJS, SignalStore, rendering, performance, and testing | Planned  |
+| 13    | Portfolio polish                                       | Planned  |
 
-Create the Angular app and understand how Angular starts.
+## Phase 0 - Project Brief
 
-Topics:
+Define the product boundary, learning objective, original domain, portfolio
+direction, and phased delivery process.
 
-- Angular CLI
-- package.json
-- angular.json
-- main.ts
-- app.config.ts
-- app.routes.ts
-- standalone components
-- application bootstrap
-- component, template, selector, router, service, and dependency injection terminology
+## Phase 1 - Angular Scaffold And Foundation
 
-Project features:
+Create the standalone Angular application and understand CLI scaffolding,
+bootstrap, application configuration, TypeScript files, and Git setup.
 
-- app shell
-- base layout
-- first routes
-- empty pages
+## Phase 2 - Components And Templates
 
-Suggested commit:
+Build the application shell and learn component metadata, selectors,
+composition, templates, styles, property binding, and event binding.
 
-```bash
-feat: scaffold recon control console angular app
-```
+## Phase 3 - Routing Basics
 
-## Phase 2 - Professional UI Foundation
+Connect browser URLs to routed feature pages with `Routes`, `RouterLink`,
+`RouterLinkActive`, redirects, wildcard handling, and `RouterOutlet`.
 
-Goal:
+## Phase 4 - Enterprise-Aware Architecture
 
-Build a clean dashboard foundation before adding business behavior.
+Define ownership, boundaries, and dependency direction for app root, layout,
+features, future core infrastructure, and future shared building blocks.
 
-Topics:
+## Phase 5 - Signals Basics
 
-- component composition
-- layout structure
-- reusable UI primitives
-- loading, error, and empty state patterns
-- responsive design basics
+Model typed case state with writable signals, immutable updates, and computed
+operational metrics.
 
-Project features:
+## Phase 6 - Signal Component Model
 
-- header or sidebar
-- dashboard layout
-- cards
-- badges
-- buttons
-- page containers
+Build parent-child communication with `input()`, `output()`, `model()`,
+`computed()`, and `linkedSignal()`.
 
-Suggested commit:
+## Phase 7 - Template Control Flow
 
-```bash
-feat: build professional dashboard shell and ui primitives
-```
+Render filtered collections, stable item identity, empty branches, and status
+variants with `@if`, `@for`, and `@switch`.
 
-## Phase 3 - Signal-Based Component Model
+## Phase 8 - Declarative Data Fetching
 
-Goal:
+Move case reads into `CasesService`, configure `provideHttpClient()`, load mock
+API data with `httpResource`, represent request states, and test the HTTP
+boundary with `HttpTestingController`.
 
-Learn Angular's modern component model using Signals.
+## Phase 9 - Advanced Routing
 
-Topics:
+Add case detail routing, route parameters as component inputs,
+`withComponentInputBinding()`, functional guards, lazy loading, and view
+transitions.
 
-- input()
-- output()
-- model()
-- computed()
-- linkedSignal()
-- template signal reads
-- @if
-- @for
-- @let
+## Phase 10 - Signal Forms
 
-Project features:
+Build case creation with the Signal Forms API, typed form models, validation,
+debounce, conditional disable rules, submission, and navigation.
 
-- CaseCard
-- CaseSearch
-- parent-child communication
-- computed SLA or risk label
-- local favorite/watch state
+## Phase 11 - Dependency Injection And Shared Patterns
 
-Suggested commit:
+Introduce `InjectionToken`, factory and scoped providers, host directives,
+content projection, `contentChildren()`, tabs, and domain-independent shared UI
+only when concrete reuse exists.
 
-```bash
-feat: implement signal based case components
-```
+## Phase 12 - Enterprise State, Async Work, Performance, And Testing
 
-## Phase 4 - Declarative Data Fetching
-
-Goal:
-
-Load backend data declaratively with signal-aware APIs.
-
-Topics:
-
-- HttpClient
-- httpResource
-- loading state
-- error state
-- value guards
-- read vs mutation flows
-
-Project features:
-
-- CasesService
-- mock API
-- case list loading
-- search-driven refetch
-- archive/delete mutation
-
-Suggested commit:
-
-```bash
-feat: add declarative case data fetching with httpResource
-```
-
-## Phase 5 - Modern Routing
-
-Goal:
-
-Use modern Angular routing patterns.
-
-Topics:
-
-- Routes
-- RouterLink
-- route params
-- withComponentInputBinding()
-- input.required()
-- functional guards
-- view transitions
-
-Project features:
-
-- /cases
-- /cases/:id
-- /cases/new
-- reviewer/admin guard simulation
-
-Suggested commit:
-
-```bash
-feat: add modern routing and case detail flow
-```
-
-## Phase 6 - Signal Forms
-
-Goal:
-
-Build a real form using the new Signal Forms API.
-
-Topics:
-
-- form model
-- form schema
-- required validation
-- minLength validation
-- debounce
-- conditional disable
-- dynamic arrays
-- submit flow
-
-Project features:
-
-- CreateCase page
-- related transaction fields
-- validation messages
-- API create request
-- navigation after submit
-
-Suggested commit:
-
-```bash
-feat: build signal forms based create case flow
-```
-
-## Phase 7 - Dependency Injection And Shared UI Patterns
-
-Goal:
-
-Apply enterprise-aware Angular architecture without over-engineering.
-
-Topics:
-
-- inject()
-- InjectionToken
-- factory providers
-- core/shared/features boundaries
-- content projection
-- contentChildren()
-- hierarchical DI
-- host directives
-
-Project features:
-
-- API_URL and derived endpoint tokens
-- UiCard
-- TabGroup and Tab
-- click logger directive
-- scoped tab state
-
-Suggested commit:
-
-```bash
-feat: add advanced dependency injection and shared ui patterns
-```
-
-## Phase 8 - Rendering And Performance
-
-Goal:
-
-Make the app more production-aware.
-
-Topics:
-
-- zoneless Angular
-- SSR
-- hydration
-- incremental hydration
-- @defer
-- NgOptimizedImage
-- performance thinking
-
-Project features:
-
-- deferred audit/timeline panel
-- optimized visual assets
-- SSR build verification
-
-Suggested commit:
-
-```bash
-feat: enable ssr hydration and performance optimizations
-```
-
-## Phase 9 - RxJS Concurrency And Error Patterns
-
-Goal:
-
-Understand safe async action handling for real business workflows.
-
-Topics:
-
-- Observable basics
-- mergeMap
-- switchMap
-- concatMap
-- exhaustMap
-- inner catchError
-- double-submit prevention
-
-Project features:
-
-- approve/review action playground
-- duplicate action prevention
-- resilient error handling
-
-Suggested commit:
-
-```bash
-feat: demonstrate rxjs concurrency for review actions
-```
-
-## Phase 10 - Enterprise State With SignalStore
-
-Goal:
-
-Move global review state into a structured store.
-
-Topics:
-
-- @ngrx/signals
-- signalStore
-- withState
-- withComputed
-- withMethods
-- rxMethod
-- optimistic update
-- rollback
-- reusable request status feature
-
-Project features:
-
-- ReviewQueueStore
-- queue count
-- add/remove case
-- approve with optimistic update
-- rollback on error
-
-Suggested commit:
-
-```bash
-feat: implement review queue with ngrx signal store
-```
-
-## Phase 11 - Testing
-
-Goal:
-
-Add focused tests that prove the important behavior works.
-
-Topics:
-
-- Vitest
-- Angular TestBed
-- component tests
-- SignalStore tests
-- HTTP mocking
-- component harness
-- @defer testing
-
-Project features:
-
-- CaseCard tests
-- ReviewQueueStore tests
-- CaseDetail tests
-- harness example
-
-Suggested commit:
-
-```bash
-test: add vitest coverage for signals store and components
-```
-
-## Phase 12 - Spring Boot Integration Readiness
-
-Goal:
-
-Prepare the frontend for a future backend integration.
-
-Topics:
-
-- API contracts
-- DTO mapping
-- environment configuration
-- error model
-- auth-readiness
-- gateway-readiness
-
-Project features:
-
-- documented case API contract
-- mock data aligned with future backend shape
-- integration notes
-
-Suggested commit:
-
-```bash
-docs: document spring boot integration contract
-```
+Apply RxJS concurrency, NgRx SignalStore, `rxMethod`, optimistic updates,
+rollback, SSR, hydration, incremental hydration, `@defer`, `NgOptimizedImage`,
+store tests, component tests, and harness patterns.
 
 ## Phase 13 - Portfolio Polish
 
-Goal:
+Finalize README content, architecture diagrams, screenshots, setup guidance,
+learning references, Git history, and LinkedIn presentation material.
 
-Make the project presentable on GitHub and LinkedIn.
+## Delivery Rule
 
-Outputs:
-
-- polished README
-- screenshots
-- architecture section
-- Angular concept map
-- setup instructions
-- learning notes
-- LinkedIn post draft
-
-Suggested commit:
-
-```bash
-docs: finalize portfolio readme and project presentation
-```
+Each phase ends only when its behavior is explained, implemented, tested,
+documented, built successfully, and recorded in Git. Domain complexity remains
+limited to what is required to teach the Angular concept.

@@ -1,18 +1,94 @@
+import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { vi } from 'vitest';
+import type { ReconciliationCase } from './model/reconciliation-case';
+import { CasesService } from './data-access/cases.service';
 import { CasesPage } from './cases-page';
 
+const INITIAL_CASES: ReconciliationCase[] = [
+  {
+    id: 'CASE-1001',
+    reference: 'TXN-2026-001',
+    status: 'OPEN',
+    slaHoursRemaining: 2,
+  },
+  {
+    id: 'CASE-1002',
+    reference: 'TXN-2026-002',
+    status: 'IN_REVIEW',
+    slaHoursRemaining: 6,
+  },
+  {
+    id: 'CASE-1003',
+    reference: 'TXN-2026-003',
+    status: 'OPEN',
+    slaHoursRemaining: 12,
+  },
+  {
+    id: 'CASE-1004',
+    reference: 'TXN-2026-004',
+    status: 'RESOLVED',
+    slaHoursRemaining: 0,
+  },
+];
+
 describe('CasesPage', () => {
+  const cases = signal<ReconciliationCase[]>([]);
+  const isLoading = signal(false);
+  const error = signal<unknown | undefined>(undefined);
+  const reload = vi.fn();
+
   beforeEach(async () => {
+    cases.set(structuredClone(INITIAL_CASES));
+    isLoading.set(false);
+    error.set(undefined);
+    reload.mockReset();
+
     await TestBed.configureTestingModule({
       imports: [CasesPage],
+      providers: [
+        {
+          provide: CasesService,
+          useValue: {
+            casesResource: { value: cases, isLoading, error, reload },
+          },
+        },
+      ],
     }).compileComponents();
   });
 
-  it('derives the initial operational metrics from the case state', () => {
-    const fixture = TestBed.createComponent(CasesPage);
+  it('renders loading without reading case-dependent views', () => {
+    isLoading.set(true);
+    const { compiled } = renderPage();
+
+    expect(metricText(compiled, 'cases-loading')).toContain('Loading cases');
+    expect(elements(compiled, 'open-cases-count')).toHaveLength(0);
+    expect(elements(compiled, 'case-list')).toHaveLength(0);
+  });
+
+  it('renders an error and reloads the resource on retry', () => {
+    error.set(new Error('Service unavailable'));
+    const { fixture, compiled } = renderPage();
+
+    expect(metricText(compiled, 'cases-error')).toContain('Cases could not be loaded');
+    expect(elements(compiled, 'open-cases-count')).toHaveLength(0);
+
+    button(compiled, 'reload-cases').click();
     fixture.detectChanges();
 
-    const compiled = fixture.nativeElement as HTMLElement;
+    expect(reload).toHaveBeenCalledOnce();
+  });
+
+  it('renders a dedicated empty state when the data source returns no cases', () => {
+    cases.set([]);
+    const { compiled } = renderPage();
+
+    expect(metricText(compiled, 'empty-case-register')).toContain('No operational cases');
+    expect(elements(compiled, 'empty-case-list')).toHaveLength(0);
+  });
+
+  it('derives the initial operational metrics from the loaded case state', () => {
+    const { compiled } = renderPage();
 
     expect(metricText(compiled, 'open-cases-count')).toBe('2');
     expect(metricText(compiled, 'review-queue-count')).toBe('1');
@@ -21,13 +97,9 @@ describe('CasesPage', () => {
   });
 
   it('recomputes the open count when an incoming case is registered', () => {
-    const fixture = TestBed.createComponent(CasesPage);
-    fixture.detectChanges();
+    const { fixture, compiled } = renderPage();
 
-    const compiled = fixture.nativeElement as HTMLElement;
-    const registerButton = button(compiled, 'register-case');
-
-    registerButton.click();
+    button(compiled, 'register-case').click();
     fixture.detectChanges();
 
     expect(metricText(compiled, 'open-cases-count')).toBe('3');
@@ -36,10 +108,7 @@ describe('CasesPage', () => {
   });
 
   it('moves open cases to review without changing the SLA risk rule', () => {
-    const fixture = TestBed.createComponent(CasesPage);
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement as HTMLElement;
+    const { fixture, compiled } = renderPage();
     const moveButton = button(compiled, 'move-case-to-review');
 
     moveButton.click();
@@ -58,10 +127,7 @@ describe('CasesPage', () => {
   });
 
   it('commits the search model and derives the matching case count', () => {
-    const fixture = TestBed.createComponent(CasesPage);
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement as HTMLElement;
+    const { fixture, compiled } = renderPage();
     const searchInput = requiredElement<HTMLInputElement>(compiled, 'case-search-input');
     const searchForm = requiredElement<HTMLFormElement>(compiled, 'case-search-form');
 
@@ -88,11 +154,8 @@ describe('CasesPage', () => {
     expect(elements(compiled, 'reconciliation-case-card')).toHaveLength(4);
   });
 
-  it('renders the empty branch when no cases match the committed query', () => {
-    const fixture = TestBed.createComponent(CasesPage);
-    fixture.detectChanges();
-
-    const compiled = fixture.nativeElement as HTMLElement;
+  it('renders the search empty state when loaded cases do not match the query', () => {
+    const { fixture, compiled } = renderPage();
     const searchInput = requiredElement<HTMLInputElement>(compiled, 'case-search-input');
     const searchForm = requiredElement<HTMLFormElement>(compiled, 'case-search-form');
 
@@ -103,8 +166,19 @@ describe('CasesPage', () => {
 
     expect(elements(compiled, 'reconciliation-case-card')).toHaveLength(0);
     expect(metricText(compiled, 'empty-case-list')).toContain('No matching cases');
+    expect(elements(compiled, 'empty-case-register')).toHaveLength(0);
   });
 });
+
+function renderPage(): {
+  fixture: ReturnType<typeof TestBed.createComponent<CasesPage>>;
+  compiled: HTMLElement;
+} {
+  const fixture = TestBed.createComponent(CasesPage);
+  fixture.detectChanges();
+
+  return { fixture, compiled: fixture.nativeElement as HTMLElement };
+}
 
 function metricText(element: HTMLElement, testId: string): string | undefined {
   return element.querySelector(`[data-testid="${testId}"]`)?.textContent?.trim();
