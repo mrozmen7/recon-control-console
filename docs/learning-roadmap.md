@@ -31,8 +31,8 @@ Angular concept
 | 9     | Advanced routing                                       | Complete |
 | 10    | Signal Forms                                           | Complete |
 | 11    | Dependency Injection and shared UI patterns            | Complete |
-| 12    | RxJS, SignalStore, rendering, performance, and testing | Next     |
-| 13    | Portfolio polish                                       | Planned  |
+| 12    | RxJS, SignalStore, rendering, performance, and testing | Complete |
+| 13    | Portfolio polish                                       | Next     |
 
 ## Phase 0 - Project Brief
 
@@ -100,8 +100,8 @@ domain-independent shared UI only when concrete reuse exists.
 ## Phase 12 - Enterprise State, Async Work, Performance, And Testing
 
 Apply RxJS concurrency, NgRx SignalStore, `rxMethod`, optimistic updates,
-rollback, SSR, hydration, incremental hydration, `@defer`, `NgOptimizedImage`,
-store tests, component tests, and harness patterns.
+rollback, `@defer`, store tests, component tests, and rendering performance
+patterns.
 
 ## Phase 13 - Portfolio Polish
 

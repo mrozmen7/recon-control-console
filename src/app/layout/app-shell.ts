@@ -7,7 +7,7 @@ import { Header } from './header';
   imports: [Header, RouterOutlet],
   template: `
     <div class="shell">
-      <app-header [title]="title()" phaseLabel="Phase 11: DI + Shared Patterns" />
+      <app-header [title]="title()" phaseLabel="Phase 12: SignalStore + RxJS" />
 
       <main class="main">
         <router-outlet />

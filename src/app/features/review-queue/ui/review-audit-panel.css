@@ -1,0 +1,76 @@
+.audit-panel {
+  margin-top: 18px;
+  padding: 26px;
+  border: 1px solid #d8dee8;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: #2563eb;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h2 {
+  margin-bottom: 12px;
+  font-size: 1.45rem;
+  letter-spacing: 0;
+}
+
+.audit-panel p {
+  max-width: 760px;
+  color: #475569;
+  line-height: 1.7;
+}
+
+.audit-panel ol {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding-left: 20px;
+}
+
+.audit-panel li {
+  color: #334155;
+}
+
+.audit-panel li strong,
+.audit-panel li small {
+  display: block;
+}
+
+.audit-panel li small {
+  margin-top: 3px;
+  color: #64748b;
+}
+
+.empty-state {
+  margin-top: 18px;
+  padding: 28px;
+  border: 1px dashed #94a3b8;
+  border-radius: 8px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.empty-state h3 {
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+.empty-state p {
+  margin-bottom: 0;
+  color: #64748b;
+  line-height: 1.6;
+}

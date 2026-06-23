@@ -69,6 +69,7 @@ dependency rules.
 - [Phase 9 Advanced Routing](docs/phase-9-advanced-routing.md)
 - [Phase 10 Signal Forms](docs/phase-10-signal-forms.md)
 - [Phase 11 Dependency Injection And Shared Patterns](docs/phase-11-di-shared-patterns.md)
+- [Phase 12 SignalStore, RxJS, Performance, And Testing](docs/phase-12-signalstore-rxjs-performance-testing.md)
 
 ## Getting Started
 
@@ -103,12 +104,12 @@ npm test -- --watch=false
 
 ## Status
 
-Phase 11 is complete: the review queue route now demonstrates Dependency
-Injection, `InjectionToken`, root and scoped providers, shared directives,
-generic tabs, host directives, content projection, and `contentChildren()`.
+Phase 12 is complete: review queue state now lives in an NgRx SignalStore with
+`rxMethod`, `exhaustMap`, optimistic approval, rollback handling, deferred audit
+rendering, and dedicated store/component tests.
 
 Current verification:
 
 - `npm run build` passes
 - `npm test -- --watch=false` passes
-- 31 focused tests cover routing, HTTP behavior, resource states, Signal Forms, Dependency Injection, shared directives, generic tabs, signals, and component interaction
+- 37 focused tests cover routing, HTTP behavior, resource states, Signal Forms, Dependency Injection, shared directives, generic tabs, SignalStore, RxJS concurrency, rollback, deferred rendering, signals, and component interaction
