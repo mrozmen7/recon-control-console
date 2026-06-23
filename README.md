@@ -1,63 +1,95 @@
 # Recon Control Console
 
-Recon Control Console is a modern Angular reference project for learning and demonstrating professional Angular application patterns through a focused reconciliation operations dashboard.
+Recon Control Console is a portfolio-ready Angular reference project that
+demonstrates modern Angular application patterns through a focused
+reconciliation operations console.
 
-The project is built as a portfolio-ready learning journey. It follows the structure of an intermediate Angular curriculum while using an original domain and UI direction.
+The project follows an intermediate Angular learning path and applies each
+topic in an original product domain. The goal is not to build a large banking
+system; the goal is to show clear Angular ownership, state flow, routing, data
+access, forms, dependency injection, performance, and testing decisions.
 
-## Primary Goal
+## What This Project Demonstrates
 
-Learn modern Angular deeply and practically:
-
-- Signals
-- signal inputs and outputs
-- computed and linked signals
-- declarative data fetching
-- modern routing
-- signal forms
-- dependency injection
-- shared UI architecture
-- SSR and hydration
-- RxJS concurrency
-- SignalStore
-- Vitest testing
+- Standalone Angular application structure
+- Component composition, templates, property binding, and event binding
+- Modern routing, lazy component loading, route guards, route params, and view transitions
+- Signals with `signal()`, `computed()`, `input()`, `output()`, `model()`, and `linkedSignal()`
+- Template control flow with `@if`, `@for`, and `@switch`
+- Declarative data fetching with `httpResource`
+- Signal Forms with typed models, validation, debounce, conditional disable, and submit lifecycle
+- Dependency Injection with root providers, scoped providers, `InjectionToken`, directives, host directives, and content children
+- NgRx SignalStore with `rxMethod`, RxJS `exhaustMap`, optimistic update, rollback, and store tests
+- Rendering and performance behavior with lazy routes and `@defer`
+- Unit and component testing with Angular testing utilities and Vitest
+- CI quality gates with GitHub Actions
+- Architecture documentation and ADR records
 
 ## Product Concept
 
-The app helps an operations team review reconciliation cases.
+The application helps an operations team monitor reconciliation exceptions and
+review case workflow.
 
-Initial capabilities:
+Core user flows:
 
-- list active reconciliation cases
-- search and filter cases
-- open case details
-- create a new case
-- manage a review queue
-- review lightweight audit and timeline details
+- Review operational case metrics
+- Search and filter reconciliation cases
+- Open a case detail route
+- Create a case with Signal Forms
+- Move review items through a SignalStore-powered queue
+- Simulate optimistic success and rollback behavior
+- Inspect lightweight interaction audit information
 
-The domain is intentionally limited so the project stays focused on Angular concepts.
+The domain is intentionally small so Angular concepts remain the center of the
+project.
 
-## Architecture Direction
+## Architecture
 
-The project uses enterprise-aware boundaries without unnecessary complexity:
+The project uses enterprise-aware boundaries without creating folders before
+they have a real responsibility.
 
 ```text
 src/app/
-  app.*
-  layout/
-  features/
+  app.*                 application composition
+  layout/               stable shell and navigation
+  core/                 app-wide infrastructure
+  shared/               reusable domain-independent UI and directives
+  features/             business capabilities and routed screens
     cases/
     create-case/
     review-queue/
 ```
 
-`core/`, `shared/`, and feature subfolders are introduced when a concrete
-course example requires them. See the Phase 4 document for ownership and
-dependency rules.
+Dependency direction:
+
+```text
+app root ---> layout
+app root ---> features
+features ---> core
+features ---> shared
+layout -----> shared
+
+shared -X-> features
+core ---X-> features
+```
+
+See [Architecture Overview](docs/architecture-overview.md) and
+[Phase 4 Enterprise-Aware Architecture](docs/phase-4-enterprise-architecture.md)
+for the detailed rules.
 
 ## Documentation
 
 - [Project Brief](docs/project-brief.md)
 - [Learning Roadmap](docs/learning-roadmap.md)
+- [Architecture Overview](docs/architecture-overview.md)
+- [Production Readiness](docs/production-readiness.md)
+- [Phase 13 Portfolio Polish](docs/phase-13-portfolio-polish.md)
+- [ADR 0001 - Modern Angular Reference Architecture](docs/adr/0001-modern-angular-reference-architecture.md)
+- [ADR 0002 - Signal-First State And Data Flow](docs/adr/0002-signal-first-state-and-data-flow.md)
+- [ADR 0003 - CI Quality Gates](docs/adr/0003-ci-quality-gates.md)
+
+Learning phase notes:
+
 - [Phase 1 Angular Foundation](docs/phase-1-angular-foundation.md)
 - [Phase 2 Components And Templates](docs/phase-2-components-and-templates.md)
 - [Phase 3 Routing Basics](docs/phase-3-routing-basics.md)
@@ -75,7 +107,7 @@ dependency rules.
 
 Recommended runtime:
 
-- Node.js 22 LTS or another Angular-supported LTS version
+- Node.js 22 LTS
 - npm 11+
 
 Install dependencies:
@@ -90,26 +122,59 @@ Start the local development server:
 npm run start
 ```
 
-Build the project:
+Open:
+
+```text
+http://localhost:4200
+```
+
+Run production build:
 
 ```bash
 npm run build
 ```
 
-Run tests:
+Run the test suite once:
 
 ```bash
 npm test -- --watch=false
 ```
 
-## Status
+## Quality Gates
 
-Phase 12 is complete: review queue state now lives in an NgRx SignalStore with
-`rxMethod`, `exhaustMap`, optimistic approval, rollback handling, deferred audit
-rendering, and dedicated store/component tests.
+The repository is designed to be checked before every shareable change:
+
+```text
+npm ci
+npm test -- --watch=false
+npm run build
+```
+
+The GitHub Actions workflow in
+[ci.yml](.github/workflows/ci.yml) runs the same gates on pushes and pull
+requests.
+
+## Current Status
+
+Phase 13 is complete: the application has professional documentation,
+architecture notes, ADRs, CI quality gates, and final portfolio guidance.
 
 Current verification:
 
-- `npm run build` passes
 - `npm test -- --watch=false` passes
+- `npm run build` passes
 - 37 focused tests cover routing, HTTP behavior, resource states, Signal Forms, Dependency Injection, shared directives, generic tabs, SignalStore, RxJS concurrency, rollback, deferred rendering, signals, and component interaction
+
+## Suggested GitHub Repository Details
+
+Description:
+
+```text
+Modern Angular reference project for Signals, routing, Signal Forms, DI, SignalStore, RxJS, performance, and testing.
+```
+
+Topics:
+
+```text
+angular, angular-signals, signalstore, ngrx-signals, rxjs, signal-forms, routing, dependency-injection, vitest, portfolio-project
+```
