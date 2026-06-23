@@ -29,8 +29,8 @@ Angular concept
 | 7     | Template control flow                                  | Complete |
 | 8     | Declarative data fetching with `httpResource`          | Complete |
 | 9     | Advanced routing                                       | Complete |
-| 10    | Signal Forms                                           | Next     |
-| 11    | Dependency Injection and shared UI patterns            | Planned  |
+| 10    | Signal Forms                                           | Complete |
+| 11    | Dependency Injection and shared UI patterns            | Next     |
 | 12    | RxJS, SignalStore, rendering, performance, and testing | Planned  |
 | 13    | Portfolio polish                                       | Planned  |
 
@@ -89,7 +89,7 @@ transitions.
 ## Phase 10 - Signal Forms
 
 Build case creation with the Signal Forms API, typed form models, validation,
-debounce, conditional disable rules, submission, and navigation.
+debounce, conditional disable rules, submission, and local draft registration.
 
 ## Phase 11 - Dependency Injection And Shared Patterns
 

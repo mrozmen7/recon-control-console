@@ -7,7 +7,7 @@ import { Header } from './header';
   imports: [Header, RouterOutlet],
   template: `
     <div class="shell">
-      <app-header [title]="title()" phaseLabel="Phase 9: Advanced Routing" />
+      <app-header [title]="title()" phaseLabel="Phase 10: Signal Forms" />
 
       <main class="main">
         <router-outlet />

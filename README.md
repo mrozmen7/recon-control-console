@@ -67,6 +67,7 @@ dependency rules.
 - [Phase 7 Template Control Flow](docs/phase-7-template-control-flow.md)
 - [Phase 8 Declarative Data Fetching](docs/phase-8-http-resource.md)
 - [Phase 9 Advanced Routing](docs/phase-9-advanced-routing.md)
+- [Phase 10 Signal Forms](docs/phase-10-signal-forms.md)
 
 ## Getting Started
 
@@ -101,12 +102,12 @@ npm test -- --watch=false
 
 ## Status
 
-Phase 9 is complete: case cards open shareable detail routes, dynamic route
-parameters bind directly to signal inputs, secondary pages load lazily, and
-functional guards plus native view transitions extend the Router lifecycle.
+Phase 10 is complete: the case creation route now uses Angular Signal Forms
+for a typed intake model, validation, debounce, conditional disabled state,
+form submission, and component tests.
 
 Current verification:
 
 - `npm run build` passes
 - `npm test -- --watch=false` passes
-- 21 focused tests cover routing, HTTP behavior, resource states, signals, and component interaction
+- 25 focused tests cover routing, HTTP behavior, resource states, Signal Forms, signals, and component interaction
