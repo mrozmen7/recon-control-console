@@ -7,7 +7,7 @@ import type { ReconciliationCase } from '../model/reconciliation-case';
 })
 export class CasesService {
   readonly casesResource = httpResource<ReconciliationCase[]>(
-    () => '/mock-data/reconciliation-cases.json',
+    () => 'mock-data/reconciliation-cases.json',
     {
       defaultValue: [],
       debugName: 'casesResource',

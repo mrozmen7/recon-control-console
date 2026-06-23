@@ -5,7 +5,7 @@ import { TestBed } from '@angular/core/testing';
 import type { ReconciliationCase } from '../model/reconciliation-case';
 import { CasesService } from './cases.service';
 
-const CASES_URL = '/mock-data/reconciliation-cases.json';
+const CASES_URL = 'mock-data/reconciliation-cases.json';
 const API_CASES: ReconciliationCase[] = [
   {
     id: 'CASE-1001',
