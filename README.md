@@ -68,6 +68,7 @@ dependency rules.
 - [Phase 8 Declarative Data Fetching](docs/phase-8-http-resource.md)
 - [Phase 9 Advanced Routing](docs/phase-9-advanced-routing.md)
 - [Phase 10 Signal Forms](docs/phase-10-signal-forms.md)
+- [Phase 11 Dependency Injection And Shared Patterns](docs/phase-11-di-shared-patterns.md)
 
 ## Getting Started
 
@@ -102,12 +103,12 @@ npm test -- --watch=false
 
 ## Status
 
-Phase 10 is complete: the case creation route now uses Angular Signal Forms
-for a typed intake model, validation, debounce, conditional disabled state,
-form submission, and component tests.
+Phase 11 is complete: the review queue route now demonstrates Dependency
+Injection, `InjectionToken`, root and scoped providers, shared directives,
+generic tabs, host directives, content projection, and `contentChildren()`.
 
 Current verification:
 
 - `npm run build` passes
 - `npm test -- --watch=false` passes
-- 25 focused tests cover routing, HTTP behavior, resource states, Signal Forms, signals, and component interaction
+- 31 focused tests cover routing, HTTP behavior, resource states, Signal Forms, Dependency Injection, shared directives, generic tabs, signals, and component interaction
