@@ -87,6 +87,7 @@ for the detailed rules.
 - [ADR 0001 - Modern Angular Reference Architecture](docs/adr/0001-modern-angular-reference-architecture.md)
 - [ADR 0002 - Signal-First State And Data Flow](docs/adr/0002-signal-first-state-and-data-flow.md)
 - [ADR 0003 - CI Quality Gates](docs/adr/0003-ci-quality-gates.md)
+- [ADR 0004 - GitHub Pages Deployment](docs/adr/0004-github-pages-deployment.md)
 
 Learning phase notes:
 
@@ -128,10 +129,22 @@ Open:
 http://localhost:4200
 ```
 
+Live demo target after GitHub Pages deployment:
+
+```text
+https://mrozmen7.github.io/recon-control-console/
+```
+
 Run production build:
 
 ```bash
 npm run build
+```
+
+Prepare the GitHub Pages artifact locally after a production build:
+
+```bash
+npm run prepare:github-pages
 ```
 
 Run the test suite once:
@@ -148,11 +161,12 @@ The repository is designed to be checked before every shareable change:
 npm ci
 npm test -- --watch=false
 npm run build
+npm run prepare:github-pages
 ```
 
 The GitHub Actions workflow in
-[ci.yml](.github/workflows/ci.yml) runs the same gates on pushes and pull
-requests.
+[ci.yml](.github/workflows/ci.yml) runs install, test, and build gates on pushes
+and pull requests. Pushes to `main` also deploy the GitHub Pages build.
 
 ## Current Status
 

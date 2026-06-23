@@ -21,15 +21,17 @@ Run these commands before publishing a major change:
 npm ci
 npm test -- --watch=false
 npm run build
+npm run prepare:github-pages
 ```
 
 What each gate proves:
 
-| Gate                        | Purpose                                                       |
-| --------------------------- | ------------------------------------------------------------- |
-| `npm ci`                    | installs exactly from `package-lock.json`                     |
-| `npm test -- --watch=false` | runs the automated test suite once                            |
-| `npm run build`             | verifies TypeScript, Angular compilation, and bundle creation |
+| Gate                           | Purpose                                                       |
+| ------------------------------ | ------------------------------------------------------------- |
+| `npm ci`                       | installs exactly from `package-lock.json`                     |
+| `npm test -- --watch=false`    | runs the automated test suite once                            |
+| `npm run build`                | verifies TypeScript, Angular compilation, and bundle creation |
+| `npm run prepare:github-pages` | verifies GitHub Pages post-build preparation                  |
 
 ## CI/CD Gate
 
@@ -39,12 +41,13 @@ The repository includes a GitHub Actions workflow:
 .github/workflows/ci.yml
 ```
 
-The workflow runs on:
+The verification workflow runs on:
 
 - pushes to `main`
 - pull requests targeting `main`
+- manual runs through `workflow_dispatch`
 
-The workflow checks:
+The verification job checks:
 
 ```text
 npm ci
@@ -52,8 +55,48 @@ npm test -- --watch=false
 npm run build
 ```
 
+The deployment job runs only for pushes to `main`:
+
+```text
+npm ci
+npm run build
+npm run prepare:github-pages
+patch index.html with the GitHub Pages base href
+write 404.html for Angular route fallback
+upload dist/recon-control-console/browser
+deploy to GitHub Pages
+```
+
 In a real company, this kind of workflow blocks weak pull requests from being
-merged before the project can install, test, and build cleanly.
+merged before the project can install, test, and build cleanly. The deploy job
+then publishes only the verified main branch.
+
+## GitHub Pages Deployment
+
+The app is deployed as a static Angular application under the repository path:
+
+```text
+https://mrozmen7.github.io/recon-control-console/
+```
+
+Angular needs this base path during deployment:
+
+```text
+/recon-control-console/
+```
+
+The project exposes a post-build preparation command:
+
+```bash
+npm run prepare:github-pages
+```
+
+That command executes `scripts/prepare-github-pages.mjs` after `npm run build`.
+The script updates the generated `index.html` base href and writes `404.html`.
+
+The `404.html` fallback is important because GitHub Pages does not know Angular
+routes such as `/cases/CASE-1001`. The fallback lets the browser load Angular
+first, and then Angular Router handles the route.
 
 ## Manual Review Checklist
 
@@ -98,4 +141,4 @@ Good next steps after this training project:
 - add route-level authorization
 - add end-to-end tests for critical workflows
 - add accessibility checks in CI
-- add deployment preview workflow
+- add deployment preview workflow for pull requests
